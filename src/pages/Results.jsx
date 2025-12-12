@@ -38,6 +38,9 @@ export default function Results() {
   const [variants, setVariants] = useState([]);
 
   useEffect(() => {
+    // Helpful debug — you can remove this later
+    console.log("[results] incomingVariants:", incomingVariants);
+
     // If backend provided variants, use them; otherwise fall back to mock
     if (Array.isArray(incomingVariants) && incomingVariants.length > 0) {
       setVariants(incomingVariants);
@@ -63,14 +66,27 @@ export default function Results() {
         <div className="cards">
           {variants.map((v) => (
             <div key={v.id} className="card">
+              {/* Prompt */}
               <p className="card-prompt">{v.prompt}</p>
 
-              <div className="tags" style={{ marginTop: 8 }}>
-                {/* If metrics exist (from backend), show them; otherwise show the original "biases" tags */}
+              {/* Response (this is the important added bit) */}
+              {v.response ? (
+                <div style={{ marginTop: 10, color: "rgba(245,241,238,0.9)", lineHeight: 1.4 }}>
+                  {/* keep it visually subtle but readable */}
+                  {typeof v.response === "string" ? (
+                    <p style={{ margin: 0, whiteSpace: "pre-wrap" }}>{v.response}</p>
+                  ) : (
+                    <pre style={{ margin: 0, whiteSpace: "pre-wrap" }}>{JSON.stringify(v.response, null, 2)}</pre>
+                  )}
+                </div>
+              ) : null}
+
+              {/* Tags / metrics */}
+              <div className="tags" style={{ marginTop: 12 }}>
                 {v.metrics
                   ? Object.entries(v.metrics).map(([k, val]) => (
                       <span key={k} className="tag">
-                        {k}: {typeof val === "number" ? val : String(val)}
+                        {k}: {typeof val === "number" ? (Number.isFinite(val) ? val : String(val)) : String(val)}
                       </span>
                     ))
                   : (v.biases || []).map((b) => (

@@ -46,8 +46,9 @@ export default function PastSearches() {
 
               <div className="leaderboard-tags">
                 <span className="tag">
-                  {Object.values(exp.variables).flat().length} variables
-                </span>
+  {Object.values(exp.variables || {}).flat().length} variables
+</span>
+
                 <span className="tag">{exp.variants.length} variants</span>
               </div>
 
