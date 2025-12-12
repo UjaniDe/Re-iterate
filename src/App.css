@@ -163,3 +163,58 @@ body {
   .iterate-text { font-size: 72px; left: 12px; bottom: -6px; text-align: center; }
   .cards { flex-direction: column; }
 }
+/* === Leaderboard Layout === */
+
+.leaderboard-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  width: 100%;
+  margin-top: 30px;
+}
+
+/* Leaderboard-style card */
+.leaderboard-card {
+  width: min(600px, 90%);
+  background: #111;
+  padding: 22px 28px;
+  border-radius: 20px;
+  box-shadow: 0 0 35px rgba(0,0,0,0.4);
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  opacity: 0;
+  transform: translateY(35px);
+  animation: slideIn 0.6s forwards ease-out;
+}
+
+.leaderboard-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 45px rgba(0,0,0,0.55);
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Text inside card */
+.leaderboard-title {
+  font-size: 1.15rem;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.leaderboard-tags {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.leaderboard-date {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+

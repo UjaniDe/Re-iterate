@@ -107,7 +107,11 @@ export default function Home() {
 
           <nav className="nav-links" aria-label="Main navigation">
             <button className="nav-link">Home</button>
-            <button className="nav-link">Past searches</button>
+            
+            <button className="nav-link" onClick={() => navigate("/past")}>
+  Past searches
+</button>
+
             <button className="nav-link">About</button>
             <button className="nav-link">Location</button>
             <button className="nav-link">News</button>

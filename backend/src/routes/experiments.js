@@ -58,4 +58,18 @@ router.post('/run', async (req, res) => {
   }
 });
 
+// GET /api/experiments  → return latest saved experiments
+router.get("/", async (req, res) => {
+  try {
+    const experiments = await Experiment.find()
+      .sort({ createdAt: -1 })
+      .limit(20); // don’t dump entire DB
+
+    res.json({ ok: true, experiments });
+  } catch (err) {
+    console.error("Error fetching experiments:", err);
+    res.status(500).json({ ok: false, error: "server error" });
+  }
+});
+
 module.exports = router;
